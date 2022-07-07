@@ -14,7 +14,7 @@ deps-job:       # This job runs in the build stage, which runs first
     - tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz
     - export PATH=$PATH:/usr/local/go/bin
     - apk --no-cache add openjdk11 --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-    - apk add bash vim curl wget jq docker git tar unzip bash-completion ca-certificates gradle maven
+    - apk add bash curl jq docker git unzip bash-completion ca-certificates gradle maven
   script: python3 dependencies.py $CI_PROJECT_REPOSITORY_LANGUAGES > deps.txt
   artifacts:
     paths:
