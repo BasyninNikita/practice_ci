@@ -36,7 +36,7 @@ trivy_test:
     - apt-get update
     - apt-get install wget -y
     - wget https://github.com/aquasecurity/trivy/releases/download/v0.29.2/trivy_0.29.2_Linux-64bit.deb
-    - sudo dpkg -i trivy_0.29.2_Linux-64bit.deb
+    - dpkg -i trivy_0.29.2_Linux-64bit.deb
   script: trivy fs $CI_PROJECT_DIR > trivy_check.txt
   artifacts:
     paths:
