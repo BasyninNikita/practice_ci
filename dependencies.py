@@ -9,6 +9,7 @@ if __name__ == "__main__":
             Out = os.popen('pip list').read()
             print(Out)
         elif lang == 'java':
+            os.popen('gradle init')
             Out = os.popen('gradle dependencies').read()
             print(Out)
         elif lang == 'nodejs' or lang == 'javascript':
