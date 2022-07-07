@@ -10,7 +10,7 @@ if __name__ == "__main__":
             print(Out)
         elif lang == 'java':
             pass
-        elif lang == 'nodejs':
+        elif lang == 'nodejs' or lang == 'javascript':
             Out = os.popen('npm list').read()
             print(Out)
         elif lang == 'go':
