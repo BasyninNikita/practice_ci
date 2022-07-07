@@ -1,14 +1,18 @@
 stages:          # List of stages for jobs, and their order of execution
-  - chech-deps
+  - check-deps
   - test
   - trivy
 
 deps-job:       # This job runs in the build stage, which runs first.
-  stage: chech-deps
+  stage: check-deps
   before_script:
     - apk update
     - apk add python3
     - apk add py3-pip
+    - apk add tar
+    - wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz
+    - tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz
+    - export PATH=$PATH:/usr/local/go/bin
   script: python3 dependencies.py $CI_PROJECT_REPOSITORY_LANGUAGES > deps.txt
   artifacts:
     paths:
