@@ -1,6 +1,5 @@
 stages:          # List of stages for jobs, and their order of execution
   - check-deps
-  - test
   - trivy
 
 deps-job:       # This job runs in the build stage, which runs first.
@@ -10,6 +9,7 @@ deps-job:       # This job runs in the build stage, which runs first.
     - apk add python3
     - apk add py3-pip
     - apk add tar
+    - apk add  nodejs npm
     - wget https://golang.org/dl/go1.17.2.linux-amd64.tar.gz
     - tar -C /usr/local -xzf go1.17.2.linux-amd64.tar.gz
     - export PATH=$PATH:/usr/local/go/bin
@@ -17,20 +17,6 @@ deps-job:       # This job runs in the build stage, which runs first.
   artifacts:
     paths:
     - deps.txt
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  script:
-    - echo "Running unit tests... This will take about 60 seconds."
-    - sleep 60
-    - echo "Code coverage is 90%"
-
-lint-test-job:   # This job also runs in the test 
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - echo "Linting code... This will take about 10 seconds."
-    - sleep 10
-    - echo "No lint issues found."
 
 trivy_test:
   stage: trivy
