@@ -1,10 +1,10 @@
 stages:          # List of stages for jobs, and their order of execution
-  - build
+  - chech-deps
   - test
-  - deploy
+  - trivy
 
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
+deps-job:       # This job runs in the build stage, which runs first.
+  stage: chech-deps
   before_script:
     - apk update
     - apk add python3
@@ -28,8 +28,22 @@ lint-test-job:   # This job also runs in the test
     - sleep 10
     - echo "No lint issues found."
 
-deploy-job:      # This job runs in the deploy stage.
-  stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
+trivy_test:
+  stage: trivy
+  image: docker:stable-git
+  before_script:
+    - docker build -t trivy-ci-test:${CI_COMMIT_REF_NAME} .
+    - export VERSION=$(curl --silent "https://api.github.com/repos/aquasecurity/trivy/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/')
+    - wget https://github.com/aquasecurity/trivy/releases/download/v${VERSION}/trivy_${VERSION}_Linux-64bit.tar.gz
+    - tar zxvf trivy_${VERSION}_Linux-64bit.tar.gz
+  variables:
+    DOCKER_DRIVER: overlay2
+  allow_failure: true
+  services:
+    - docker:stable-dind
   script:
-    - echo "Deploying application..."
-    - echo "Application successfully deployed."
+    - ./trivy --exit-code 0 --severity HIGH --no-progress --auto-refresh trivy-ci-test:${CI_COMMIT_REF_NAME}
+    - ./trivy --exit-code 1 --severity CRITICAL --no-progress --auto-refresh trivy-ci-test:${CI_COMMIT_REF_NAME}
+  cache:
+    directories:
+      - $HOME/.cache/trivy
