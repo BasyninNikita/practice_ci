@@ -10,11 +10,11 @@ if __name__ == "__main__":
             print(Out)
         elif lang == 'java':
             pass
-        elif lang == 'ruby':
-            pass
         elif lang == 'nodejs':
-            pass
+            Out = os.popen('npm list').read()
+            print(Out)
         elif lang == 'go':
-            os.popen("go list -f '{{ join .Deps \"\n\" }}'")
+            Out = os.popen("go list -f '{{ join .Deps \"\n\" }}'")
+            print(Out)
         else:
             print('Unknown lang')
