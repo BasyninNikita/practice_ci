@@ -18,7 +18,7 @@ pipeline {
             
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/BasyninNikita/practice_ci.git'
+                //git 'https://github.com/BasyninNikita/practice_ci.git'
                 
                 sh 'python3 dependencies.py $CI_PROJECT_REPOSITORY_LANGUAGES > deps.txt'
             }
