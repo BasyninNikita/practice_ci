@@ -30,7 +30,7 @@ pipeline {
                 }
                 // Get some code from a GitHub repository
                 //git 'https://github.com/BasyninNikita/practice_ci.git'
-                sh "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys' > ${env.LANGS}"
+                env.LANGS = sh "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'"
                 sh "echo ${env.LANGS}"
                 sh "python3 dependencies.py ${env.LANGS} > deps.txt"
             }
