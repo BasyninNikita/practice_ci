@@ -26,6 +26,7 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 //git 'https://github.com/BasyninNikita/practice_ci.git'
+                echo "${GITHUB_REPOSITORY}"
                 sh 'curl -s https://api.github.com/repos/${GITHUB_REPOSITORY}/languages | jq "keys" > ${env.LANGS}'
                 sh 'python3 dependencies.py ${env.LANGS} > deps.txt'
             }
