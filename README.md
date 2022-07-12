@@ -4,7 +4,7 @@
 
 ## Getting started
 
-To  it  for  to get started with GitLab, here's a list of recommended next steps.
+To get started with GitLab, here's a list of recommended next steps.
 
 Already a pro?  edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
 
