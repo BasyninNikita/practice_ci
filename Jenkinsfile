@@ -26,17 +26,18 @@ pipeline {
             
             steps {
                 script {
-                    env.LANGS = "py"
+                    LANGS = sh ( script: 'curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq "keys"',
+                                returnStdout: true).trim()
                 }
                 // Get some code from a GitHub repository
                 //git 'https://github.com/BasyninNikita/practice_ci.git'
-                env.LANGS = sh "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'"
+                // env.LANGS = sh "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'"
                 sh "echo ${env.LANGS}"
                 sh "python3 dependencies.py ${env.LANGS} > deps.txt"
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: false
+                    archiveArtifacts artifacts: 'deps.txt', onlyIfSuccessful: false
                 }
             }
         }
