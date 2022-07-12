@@ -26,13 +26,9 @@ pipeline {
             
             steps {
                 script {
-                    LANGS = sh ( script: 'curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq "keys"',
-                                returnStdout: true).trim()
+                    LANGS = sh ( script: 'curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq "keys"', returnStdout: true).trim()
+                    sh "echo ${LANGS}"
                 }
-                // Get some code from a GitHub repository
-                //git 'https://github.com/BasyninNikita/practice_ci.git'
-                // env.LANGS = sh "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'"
-                sh "echo ${env.LANGS}"
                 sh "python3 dependencies.py ${env.LANGS} > deps.txt"
             }
             post {
