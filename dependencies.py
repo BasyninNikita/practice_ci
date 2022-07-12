@@ -6,17 +6,17 @@ if __name__ == "__main__":
     #langs = 'python,golang,java'.split(',')
     for lang in langs:
         if lang.casefold() == 'python':
-            Out = os.popen('pip list').read()
-            print(Out)
+            Out = os.popen('pip3 list').read()
+            print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'java':
-            os.popen('gradle init')
-            Out = os.popen('gradle dependencies').read()
-            print(Out)
+            #os.popen('gradle init')
+            #Out = os.popen('gradle dependencies').read()
+            print("Java deps in process of development")
         elif lang.casefold() == 'nodejs' or lang.casefold() == 'javascript':
             Out = os.popen('npm list').read()
-            print(Out)
+            print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'go':
             Out = os.popen("go list -f '{{ join .Deps \"\n\" }}'")
-            print(Out)
+            print('%s deps: \n' %lang, Out)
         else:
-            print('Unknown lang')
+            print('%s lang is unknown for me' %lang)
