@@ -26,7 +26,7 @@ pipeline {
             
             steps {
                 script {
-                    LANGS = sh ( script: "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'", returnStdout: true)
+                    LANGS = sh ( script: "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'| tr -d '\n []'", returnStdout: true)
                     sh "echo ${LANGS}"
                 }
                 sh "python3 dependencies.py ${LANGS} > deps.txt"
