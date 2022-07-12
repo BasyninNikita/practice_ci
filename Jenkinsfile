@@ -9,8 +9,8 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                sh 'sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
-                sh 'sudo yum install jq -y'
+                sh 'yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
+                sh 'yum install jq -y'
                 sh 'jq -Version'
             }
         }
