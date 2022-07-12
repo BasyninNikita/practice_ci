@@ -9,18 +9,21 @@ pipeline {
     stages {
         stage('Prepare') {
             steps {
-                echo "adin"
-                
+                sh 'sudo yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
+                sh 'sudo yum install jq -y'
+                sh 'jq -Version'
             }
         }
         
         stage('Get dependencies') {
-            
+            environment {
+                LANGS = "py"
+            }
             steps {
                 // Get some code from a GitHub repository
                 //git 'https://github.com/BasyninNikita/practice_ci.git'
-                
-                sh 'python3 dependencies.py $CI_PROJECT_REPOSITORY_LANGUAGES > deps.txt'
+                sh 'curl -s https://api.github.com/repos/${GITHUB_REPOSITORY}/languages | jq "keys" > ${env.LANGS}'
+                sh 'python3 dependencies.py ${env.LANGS} > deps.txt'
             }
             post {
                 always {
