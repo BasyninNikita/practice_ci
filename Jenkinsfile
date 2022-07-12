@@ -32,7 +32,7 @@ pipeline {
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: false0
+                    archiveArtifacts artifacts: 'generatedFile.txt', onlyIfSuccessful: false
                 }
             }
         }
