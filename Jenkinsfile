@@ -11,8 +11,8 @@ pipeline {
             steps {
                 //sh 'yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
                 sh 'cd /etc/yum.repos.d/'
-                sh 'sed -i /'s/mirrorlist/#mirrorlist/g/' /etc/yum.repos.d/CentOS-*'
-                sh 'sed -i /'s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g/' /etc/yum.repos.d/CentOS-*'
+                sh 'sed -i "s/mirrorlist/#mirrorlist/g/" /etc/yum.repos.d/CentOS-*'
+                sh 'sed -i "s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g/" /etc/yum.repos.d/CentOS-*'
                 sh 'yum install epel-release -y'
                 sh 'yum install jq -y'
                 sh 'jq -Version'
