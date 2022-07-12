@@ -22,12 +22,13 @@ pipeline {
         stage('Get dependencies') {
             environment {
                 LANGS = "py"
+                GITHUB_REPOSITORY = "BasyninNikita/practice_ci"
             }
             steps {
                 // Get some code from a GitHub repository
                 //git 'https://github.com/BasyninNikita/practice_ci.git'
                 sh 'echo "${GITHUB_REPOSITORY}"'
-                sh 'curl -s https://api.github.com/repos/${GITHUB_REPOSITORY}/languages | jq "keys" > ${env.LANGS}'
+                sh 'curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq "keys" > ${env.LANGS}'
                 sh 'python3 dependencies.py ${env.LANGS} > deps.txt'
             }
             post {
