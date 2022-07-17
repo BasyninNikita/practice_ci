@@ -29,11 +29,11 @@ pipeline {
                     LANGS = sh ( script: "curl -s https://api.github.com/repos/${env.GITHUB_REPOSITORY}/languages | jq 'keys'| tr -d '\n []'", returnStdout: true)
                     sh "echo ${LANGS}"
                 }
-                sh "python3 dependencies.py ${LANGS} > dep.txt"
+                sh "python3 dependencies.py ${LANGS} > deps.txt"
             }
             post {
                 always {
-                    archiveArtifacts artifacts: 'dep.txt', onlyIfSuccessful: false
+                    archiveArtifacts artifacts: 'deps.txt', onlyIfSuccessful: false
                 }
             }
         }
