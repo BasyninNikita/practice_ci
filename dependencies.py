@@ -17,8 +17,7 @@ if __name__ == "__main__":
             Out = os.popen('npm list').read()
             print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'go':
-            Out = os.popen("go list -f {.Deps} ").read()
-            #os.popen("go list -json ").read() 
+            Out = os.popen("go list -f '{{ join .Deps "\n" }}'").read() 
             print('%s deps: \n' %lang, Out)
         else:
             print('%s lang is unknown for me' %lang)
