@@ -18,6 +18,6 @@ if __name__ == "__main__":
             print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'go':
             Out = os.popen("go list -json ").read() 
-            print('%s deps: \n' %lang, Out)
+            print('%s deps: \n' %lang, Out["Deps"])
         else:
             print('%s lang is unknown for me' %lang)
