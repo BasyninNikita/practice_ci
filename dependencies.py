@@ -6,7 +6,8 @@ if __name__ == "__main__":
     #langs = 'python,golang,java'.split(',')
     for lang in langs:
         if lang.casefold() == 'python':
-            Out = os.popen('pipdeptree -f').read()
+            os.popen('pip3 install pipreqs')
+            Out = os.popen('pipreqs --print').read()
             print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'java':
             #os.popen('gradle init')
