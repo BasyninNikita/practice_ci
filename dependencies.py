@@ -6,8 +6,6 @@ if __name__ == "__main__":
     #langs = 'python,golang,java'.split(',')
     for lang in langs:
         if lang.casefold() == 'python':
-            # a = os.popen('pip3 install pipreqs')
-            # b = os.popen('/usr/local/bin/pipreqs')
             Out = os.popen('/usr/local/bin/pipreqs --print').read()
             print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'java':
@@ -18,7 +16,8 @@ if __name__ == "__main__":
             Out = os.popen('npm list').read()
             print('%s deps: \n' %lang, Out)
         elif lang.casefold() == 'go':
-            Out = os.popen('go list -f \'{{ join .Deps "\n" }}\'').read() 
+            command = "go list -f '{{join .Deps " + '\"\n\"' + "}}'"
+            Out = os.popen(command).read() 
             print('%s deps: \n' %lang, Out)
         else:
             print('%s lang is unknown for me' %lang)
